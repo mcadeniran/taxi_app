@@ -1,0 +1,88 @@
+name: taxi_app
+description: 'A new Flutter project.'
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.4
+  provider: ^6.1.5
+  image_picker: ^1.1.1
+  path: ^1.8.3
+  socket_io_client: ^3.1.2
+  flutter_pdfview: ^1.2.7
+  shared_preferences: ^2.5.3
+  jwt_decoder: ^2.0.1
+  app_links: ^6.4.0
+  flutter_animate: ^4.2.0
+  sign_in_button: ^4.0.1
+  google_fonts:
+  google_maps_flutter:
+  geolocator: ^14.0.2
+  firebase_core: ^3.3.0
+  cloud_firestore: 5.2.0
+  geocoding: ^4.0.0
+  location: ^8.0.1
+  cupertino_icons: ^1.0.8
+  duration: ^4.0.3
+  intl: ^0.20.2
+  supabase_flutter: ^2.9.1
+  email_validator: ^3.0.0
+  flutter_native_splash: ^2.4.6
+  flutter_launcher_icons: ^0.14.4
+  iconify_flutter: ^0.0.7
+  google_places_flutter: ^2.1.0
+  flutter_dotenv: ^5.2.1
+  geocoder2: ^1.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: 'assets/images/applogo.png'
+
+flutter_native_splash:
+  color: '#00009A'
+  image: assets/images/applogo.png
+  ios: true
+
+  android_12:
+    color: '#00009A'
+    image: assets/images/splash12.png
+
+flutter:
+  assets:
+    - assets/images/
+    - map_themes/
+    - .env
+
+  uses-material-design: true
