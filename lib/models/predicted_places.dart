@@ -8,6 +8,6 @@ class PredictedPlaces {
   PredictedPlaces.fromJson(Map<String, dynamic> jsonData) {
     placeId = jsonData['place_id'];
     mainText = jsonData['structured_formatting']['main_text'];
-    secondaryText = jsonData['structed_formatting']['secondary_text'];
+    secondaryText = jsonData['structured_formatting']['secondary_text'];
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:taxi_app/controllers/theme_provider.dart';
 import 'package:taxi_app/controllers/user_provider.dart';
+import 'package:taxi_app/infoHandler/app_info.dart';
 import 'package:taxi_app/services/auth_gate.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +23,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => ProfileProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => AppInfo()),
       ],
       child: const TaxiApp(),
     ),
@@ -59,8 +61,6 @@ class _TaxiAppState extends State<TaxiApp> {
       themeMode: themeProvider.themeMode,
       theme: MyThemes.lightTheme,
       darkTheme: MyThemes.darkTheme,
-      // theme: ThemeData(primarySwatch: Colors.indigo, fontFamily: 'Roboto'),
-      // home: const LoginScreen(),
       home: AuthGate(),
     );
   }

@@ -59,6 +59,7 @@ dependencies:
   google_places_flutter: ^2.1.0
   flutter_dotenv: ^5.2.1
   geocoder2: ^1.4.0
+  flutter_polyline_points: ^1.0.0
 
 dev_dependencies:
   flutter_test:
