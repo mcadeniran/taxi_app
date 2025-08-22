@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1014236146041",
+    "firebase_url": "https://kipgo-taxi-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "kipgo-taxi",
+    "storage_bucket": "kipgo-taxi.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014236146041:android:436d7984101f3848ed67a8",
+        "android_client_info": {
+          "package_name": "com.kipgotaksi.taxiapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-VZPivjwtD8LB-4h5JiEY2e5bTOMA98I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

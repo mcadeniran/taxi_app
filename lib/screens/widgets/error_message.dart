@@ -18,11 +18,15 @@ class ErrorMessageWidget extends StatelessWidget {
         children: [
           Icon(Icons.error_outline, color: Colors.red),
           const SizedBox(width: 8),
-          Text(
-            localErrorMessage,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Colors.red,
-              fontWeight: FontWeight.w500,
+          Expanded(
+            child: Text(
+              localErrorMessage,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Colors.red,
+                fontWeight: FontWeight.w500,
+              ),
+              softWrap: true,
+              overflow: TextOverflow.visible,
             ),
           ),
         ],

@@ -1,60 +1,243 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Profile {
-  String id;
-  String firstName;
-  String lastName;
-  String displayName;
-  String role;
-  String phone;
-  bool isOnline;
-  String model;
-  String number;
-  double rating;
-  String colour;
+  final String id;
+  final String email;
+  final String username;
+  final String role;
+  final String token;
+  final Personal personal;
+  final Vehicle vehicle;
+  final Account account;
+  final List rides;
+  final List drives;
 
   Profile({
     required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.displayName,
+    required this.email,
+    required this.username,
     required this.role,
-    required this.phone,
-    required this.isOnline,
-    required this.model,
-    required this.number,
-    required this.rating,
-    required this.colour,
+    required this.token,
+    required this.personal,
+    required this.vehicle,
+    required this.account,
+    required this.rides,
+    required this.drives,
   });
-  // MAP TO PROFILE
-  factory Profile.fromMap(Map<String, dynamic> map) {
+
+  factory Profile.fromMap(Map<String, dynamic> map, {required String id}) {
     return Profile(
-      id: map['id'] as String,
-      firstName: map['first_name'] ?? '',
-      lastName: map['last_name'] ?? '',
-      displayName: map['display_name'] as String,
-      role: map['role'] as String,
-      phone: map['phone'] ?? '',
-      isOnline: map['is_online'] as bool,
-      model: map['model'] ?? '',
-      number: map['number'] ?? '',
-      rating: map['rating'] * 1.0 as double,
-      colour: map['colour'] ?? '',
+      id: id,
+      email: map['email'] ?? '',
+      username: map['username'] ?? '',
+      role: map['role'] ?? '',
+      token: map['token'] ?? '',
+      personal: Personal.fromMap(map['personal'] ?? {}),
+      vehicle: Vehicle.fromMap(map['vehicle'] ?? {}),
+      account: Account.fromMap(map['account'] ?? {}),
+      rides: map['rides'] ?? [],
+      drives: map['drives'] ?? [],
     );
   }
 
-  // PROFILE TO MAP
+  factory Profile.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return Profile.fromMap(data, id: doc.id);
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'first_name': firstName,
-      'last_name': lastName,
-      'display_name': displayName,
+      'email': email,
+      'username': username,
       'role': role,
-      'phone': phone,
-      'is_online': isOnline,
-      'model': model,
-      'number': number,
-      'rating': rating,
-      'colour': colour,
+      'token': token,
+      'personal': personal.toMap(),
+      'vehicle': vehicle.toMap(),
+      'account': account.toMap(),
+      'drives': drives,
+      'rides': rides,
     };
+  }
+
+  /// ✅ copyWith
+  Profile copyWith({
+    String? id,
+    String? email,
+    String? username,
+    String? role,
+    String? token,
+    Personal? personal,
+    Vehicle? vehicle,
+    Account? account,
+    List? rides,
+    List? drives,
+  }) {
+    return Profile(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      username: username ?? this.username,
+      role: role ?? this.role,
+      token: token ?? this.token,
+      personal: personal ?? this.personal,
+      vehicle: vehicle ?? this.vehicle,
+      account: account ?? this.account,
+      rides: rides ?? this.rides,
+      drives: drives ?? this.drives,
+    );
+  }
+}
+
+class Personal {
+  final String firstName;
+  final String lastName;
+  final String photoUrl;
+  final double rating;
+  final String phone;
+
+  Personal({
+    required this.firstName,
+    required this.lastName,
+    required this.photoUrl,
+    required this.rating,
+    required this.phone,
+  });
+
+  factory Personal.fromMap(Map<String, dynamic> map) {
+    return Personal(
+      firstName: map['firstName'] ?? '',
+      lastName: map['lastName'] ?? '',
+      photoUrl: map['photoUrl'] ?? '',
+      rating: (map['rating'] ?? 0).toDouble(),
+      phone: map['phone'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'firstName': firstName,
+      'lastName': lastName,
+      'photoUrl': photoUrl,
+      'rating': rating,
+      'phone': phone,
+    };
+  }
+
+  Personal copyWith({
+    String? firstName,
+    String? lastName,
+    String? photoUrl,
+    double? rating,
+    String? phone,
+  }) {
+    return Personal(
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      photoUrl: photoUrl ?? this.photoUrl,
+      rating: rating ?? this.rating,
+      phone: phone ?? this.phone,
+    );
+  }
+}
+
+class Vehicle {
+  final String numberPlate;
+  final String colour;
+  final String licence;
+  final String model;
+  final String carImage;
+
+  Vehicle({
+    required this.numberPlate,
+    required this.colour,
+    required this.licence,
+    required this.model,
+    required this.carImage,
+  });
+
+  factory Vehicle.fromMap(Map<String, dynamic> map) {
+    return Vehicle(
+      numberPlate: map['numberPlate'] ?? '',
+      colour: map['colour'] ?? '',
+      licence: map['licence'] ?? '',
+      model: map['model'] ?? '',
+      carImage: map['carImage'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'numberPlate': numberPlate,
+      'colour': colour,
+      'licence': licence,
+      'model': model,
+      'carImage': carImage,
+    };
+  }
+
+  Vehicle copyWith({
+    String? numberPlate,
+    String? colour,
+    String? licence,
+    String? model,
+    String? carImage,
+  }) {
+    return Vehicle(
+      numberPlate: numberPlate ?? this.numberPlate,
+      colour: colour ?? this.colour,
+      licence: licence ?? this.licence,
+      model: model ?? this.model,
+      carImage: carImage ?? this.carImage,
+    );
+  }
+}
+
+class Account {
+  final bool isOnline;
+  final bool isProfileCompleted;
+  final bool isApproved;
+  final DateTime createdAt;
+
+  Account({
+    required this.isOnline,
+    required this.isProfileCompleted,
+    required this.isApproved,
+    required this.createdAt,
+  });
+
+  factory Account.fromMap(Map<String, dynamic> map) {
+    return Account(
+      isOnline: map['isOnline'] ?? false,
+      isProfileCompleted: map['isProfileCompleted'] ?? false,
+      isApproved: map['isApproved'] ?? false,
+      createdAt: (map['createdAt'] is Timestamp)
+          ? (map['createdAt'] as Timestamp).toDate()
+          : (map['createdAt'] is String)
+          ? DateTime.tryParse(map['createdAt']) ?? DateTime.now()
+          : DateTime.now(),
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'isOnline': isOnline,
+      'isProfileCompleted': isProfileCompleted,
+      'isApproved': isApproved,
+      'createdAt': createdAt,
+    };
+  }
+
+  Account copyWith({
+    bool? isOnline,
+    bool? isProfileCompleted,
+    bool? isApproved,
+    DateTime? createdAt,
+  }) {
+    return Account(
+      isOnline: isOnline ?? this.isOnline,
+      isProfileCompleted: isProfileCompleted ?? this.isProfileCompleted,
+      isApproved: isApproved ?? this.isApproved,
+      createdAt: createdAt ?? this.createdAt,
+    );
   }
 }

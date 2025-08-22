@@ -22,7 +22,7 @@ class ThemeProvider extends ChangeNotifier {
 
   Future<void> _loadTheme() async {
     final prefs = await SharedPreferences.getInstance();
-    final isDark = prefs.getBool(_themeKey) ?? true;
+    final isDark = prefs.getBool(_themeKey) ?? false;
     _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }

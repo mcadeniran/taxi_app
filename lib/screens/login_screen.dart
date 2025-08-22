@@ -5,9 +5,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/icons/ion.dart';
 import 'package:iconify_flutter/icons/ph.dart';
-import 'package:provider/provider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:taxi_app/controllers/user_provider.dart';
 import 'package:taxi_app/screens/social_login.dart';
 import 'package:taxi_app/screens/widgets/error_message.dart';
 import 'package:taxi_app/screens/widgets/input_decorator.dart';
@@ -74,13 +71,16 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     final email = emailController.text;
     final password = passwordController.text;
-    final userProvider = Provider.of<ProfileProvider>(context, listen: false);
+    // final userProvider = Provider.of<ProfileProvider>(context, listen: false);
 
     try {
-      await authService.signInWithEmailPassword(email, password);
-      await userProvider.refreshProfile();
+      await authService.login(email: email, password: password);
+      // await userProvider.refreshProfile();
 
       if (!mounted) return;
+      setState(() {
+        isLoading = false;
+      });
 
       if (mounted) {
         Navigator.of(context).pushAndRemoveUntil(
@@ -89,24 +89,9 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       }
     } catch (e) {
-      if (mounted) {
-        String errorMessage = "An unexpected error occurred";
-
-        if (e is AuthException) {
-          errorMessage = e.message;
-          if (e.code == 'invalid_credentials') {
-            errorMessage = 'Invalid email or password';
-          }
-        } else if (e is PostgrestException) {
-          errorMessage = "An unexpected error occurred";
-        } else {
-          errorMessage = "An unexpected error occurred";
-        }
-        setState(() {
-          isLoading = false;
-          localErrorMessage = errorMessage;
-        });
-      }
+      localErrorMessage = e.toString().replaceFirst('Exception: ', '');
+    } finally {
+      setState(() => isLoading = false);
     }
   }
 

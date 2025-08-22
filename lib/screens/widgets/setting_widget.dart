@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 class SettingWidget extends StatelessWidget {
   final String title;
   final IconData icon;
+  final Widget page;
 
-  const SettingWidget({super.key, required this.title, required this.icon});
+  const SettingWidget({
+    super.key,
+    required this.title,
+    required this.icon,
+    required this.page,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,12 @@ class SettingWidget extends StatelessWidget {
             Text(title, style: Theme.of(context).textTheme.bodyMedium),
           ],
         ),
-        IconButton(onPressed: () {}, icon: Icon(Icons.chevron_right)),
+        IconButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (_) => page));
+          },
+          icon: Icon(Icons.chevron_right),
+        ),
       ],
     );
   }

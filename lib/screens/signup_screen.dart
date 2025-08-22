@@ -6,9 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconify_flutter/icons/ion.dart';
 import 'package:iconify_flutter/icons/ph.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:taxi_app/controllers/user_provider.dart';
 import 'package:taxi_app/screens/login_screen.dart';
 import 'package:taxi_app/screens/widgets/error_message.dart';
 import 'package:taxi_app/screens/widgets/input_decorator.dart';
@@ -62,16 +59,14 @@ class _SignupScreenState extends State<SignupScreen> {
     });
 
     if (!mounted) return;
-    final userProvider = Provider.of<ProfileProvider>(context, listen: false);
+
     try {
-      await authService.signUpWithEmailPassword(
+      await authService.signUp(
         email: emailController.text,
         password: passwordController.text,
-        fullName: nameController.text,
+        username: nameController.text,
         role: role,
       );
-
-      await userProvider.refreshProfile();
 
       if (!mounted) return;
 
@@ -82,24 +77,11 @@ class _SignupScreenState extends State<SignupScreen> {
         );
       }
     } catch (e) {
-      if (mounted) {
-        String errorMessage = "An unexpected error occurred";
-
-        if (e is AuthException) {
-          errorMessage = e.message;
-          if (e.code == 'invalid_credentials') {
-            errorMessage = 'Invalid email or password';
-          }
-        } else if (e is PostgrestException) {
-          errorMessage = "An unexpected error occurred";
-        } else {
-          errorMessage = "An unexpected error occurred";
-        }
-        setState(() {
-          isLoading = false;
-          localErrorMessage = errorMessage;
-        });
-      }
+      setState(() {
+        localErrorMessage = e.toString().replaceFirst('Exception: ', '');
+      });
+    } finally {
+      setState(() => isLoading = false);
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:taxi_app/screens/widgets/app_bar_widget.dart';
 
 class DriverProfileScreen extends StatefulWidget {
   const DriverProfileScreen({super.key});
@@ -34,19 +35,7 @@ class _DriverProfileScreenState extends State<DriverProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF00009A),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF00009A),
-        elevation: 0,
-        title: const Text(
-          'Driver Profile',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
-        centerTitle: true,
-      ),
+      appBar: AppBarWidget(title: 'Driver Profile'),
       body: Container(
         padding: const EdgeInsets.all(24),
         decoration: const BoxDecoration(
@@ -87,10 +76,7 @@ class _DriverProfileScreenState extends State<DriverProfileScreen> {
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.black87,
-              ),
+              style: const TextStyle(fontSize: 16, color: Colors.black87),
             ),
           ),
         ],
