@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_app/controllers/profile_provider.dart';
+import 'package:taxi_app/l10n/app_localizations.dart';
 import 'package:taxi_app/models/profile.dart';
 import 'package:taxi_app/screens/widgets/app_bar_widget.dart';
 import 'package:taxi_app/screens/widgets/error_message.dart';
@@ -24,7 +25,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController phoneController = TextEditingController();
   late String photoUrl;
   late Profile profile;
-  String initialCountry = 'NG';
+  String initialCountry = 'TR';
   PhoneNumber number = PhoneNumber();
   bool isLoading = false;
   PhoneNumber? parsedPhoneNumber;
@@ -54,11 +55,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             'personal.lastName': lastNameController.text,
           });
       setState(() {
-        localSuccess = 'Profile updated successfully';
+        localSuccess = AppLocalizations.of(context)!.profileUpdateSuccess;
       });
     } catch (e) {
       setState(() {
-        localError = 'Error updating profile: $e';
+        localError = '${AppLocalizations.of(context)!.profileUpdateFailure}$e';
       });
     } finally {
       setState(() => isLoading = false);
@@ -87,7 +88,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primary,
-      appBar: AppBarWidget(title: 'EDIT PROFILE'),
+      appBar: AppBarWidget(
+        title: AppLocalizations.of(context)!.editProfile.toUpperCase(),
+      ),
       body: GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
@@ -190,13 +193,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         maxLines: 1,
                         decoration: inputDecoration(
                           context: context,
-                          hint: 'First Name',
+                          hint: AppLocalizations.of(context)!.firstName,
                         ),
                         validator: (value) {
                           if (value == '') {
-                            return 'First name required';
+                            return AppLocalizations.of(
+                              context,
+                            )!.firstNameRequiredError;
                           } else if (value != null && value.length < 2) {
-                            return 'First name should be at least 2 characters';
+                            return AppLocalizations.of(
+                              context,
+                            )!.firstNameLengthError;
                           } else {
                             return null;
                           }
@@ -212,13 +219,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         maxLines: 1,
                         decoration: inputDecoration(
                           context: context,
-                          hint: 'Surname',
+                          hint: AppLocalizations.of(context)!.surname,
                         ),
                         validator: (value) {
                           if (value == '') {
-                            return 'Surname required';
+                            return AppLocalizations.of(
+                              context,
+                            )!.lastNameRequiredError;
                           } else if (value != null && value.length < 2) {
-                            return 'Surname should be at least 2 characters';
+                            return AppLocalizations.of(
+                              context,
+                            )!.lastNameLengthError;
                           } else {
                             return null;
                           }
@@ -237,10 +248,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Phone number required';
+                                  return AppLocalizations.of(
+                                    context,
+                                  )!.phoneNumberRequiredError;
                                 }
                                 if (value.length < 10) {
-                                  return 'Enter a valid phone number';
+                                  return AppLocalizations.of(
+                                    context,
+                                  )!.phoneNumberInvalidError;
                                 }
                                 return null;
                               },
@@ -258,7 +273,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               keyboardType: TextInputType.phone,
                               inputDecoration: inputDecoration(
                                 context: context,
-                                hint: 'Phone Number',
+                                hint: AppLocalizations.of(context)!.phone,
                               ),
                               onSaved: (PhoneNumber number) {
                                 parsedPhoneNumber = number;
@@ -295,7 +310,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        child: Text('Update Profile'),
+                        child: Text(
+                          AppLocalizations.of(context)!.updateProfile,
+                        ),
                       ),
                     ],
                   ),

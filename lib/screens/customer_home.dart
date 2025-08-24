@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_app/controllers/theme_provider.dart';
 import 'package:taxi_app/controllers/profile_provider.dart';
+import 'package:taxi_app/l10n/app_localizations.dart';
 import 'package:taxi_app/pushNotification/push_notification_system.dart';
 import 'package:taxi_app/screens/rides/riders/ride_history_screen.dart'
     as history;
@@ -49,7 +50,7 @@ class CustomerHome extends StatelessWidget {
                   }
                   final displayName = profileProvider.profile!.username;
                   return Text(
-                    "Hi $displayName",
+                    "${AppLocalizations.of(context)!.hi} $displayName",
                     style: GoogleFonts.poppins(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -60,7 +61,7 @@ class CustomerHome extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                "What would you like to do today?",
+                AppLocalizations.of(context)!.whatWouldYouLikeToDoToday,
                 style: GoogleFonts.poppins(fontSize: 16),
               ),
               const SizedBox(height: 20),
@@ -78,7 +79,7 @@ class CustomerHome extends StatelessWidget {
                 children: [
                   _buildOptionCard(
                     context,
-                    title: "Request Ride",
+                    title: AppLocalizations.of(context)!.requestRide,
                     icon: Icons.directions_car,
                     onTap: () {
                       Navigator.push(
@@ -90,7 +91,7 @@ class CustomerHome extends StatelessWidget {
                   ),
                   _buildOptionCard(
                     context,
-                    title: "Ride History",
+                    title: AppLocalizations.of(context)!.rideHistory,
                     icon: Icons.history,
                     onTap: () {
                       Navigator.push(
@@ -103,7 +104,7 @@ class CustomerHome extends StatelessWidget {
                   ),
                   _buildOptionCard(
                     context,
-                    title: "My Profile",
+                    title: AppLocalizations.of(context)!.myProfile,
                     icon: Icons.person,
                     onTap: () {
                       Navigator.push(
@@ -116,7 +117,7 @@ class CustomerHome extends StatelessWidget {
                   ),
                   _buildOptionCard(
                     context,
-                    title: "Settings",
+                    title: AppLocalizations.of(context)!.settings,
                     icon: Icons.settings,
                     onTap: () {
                       Navigator.push(
@@ -129,7 +130,7 @@ class CustomerHome extends StatelessWidget {
                   ),
                   _buildOptionCard(
                     context,
-                    title: "Test",
+                    title: AppLocalizations.of(context)!.test,
                     icon: Icons.laptop_chromebook,
                     onTap: () {
                       Navigator.push(
@@ -154,7 +155,10 @@ class CustomerHome extends StatelessWidget {
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
-                        "Use promo code KIPGO10 to get 10% off your next ride!",
+                        // "Use promo code KIPGO10 to get 10% off your next ride!",
+                        AppLocalizations.of(
+                          context,
+                        )!.usePromoCode('KIPGO10', 10),
                         style: GoogleFonts.poppins(color: Colors.white),
                       ),
                     ),

@@ -10,6 +10,7 @@ import 'package:iconify_flutter/icons/ic.dart';
 import 'package:iconify_flutter/icons/mdi.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_app/controllers/theme_provider.dart';
+import 'package:taxi_app/l10n/app_localizations.dart';
 import 'package:taxi_app/models/ride_history.dart';
 import 'package:taxi_app/screens/rides/directions_service.dart';
 import 'package:taxi_app/screens/widgets/app_bar_widget.dart';
@@ -134,7 +135,7 @@ class _RideDetailsScreenState extends State<RideDetailsScreen> {
   Widget build(BuildContext context) {
     bool isDark = Provider.of<ThemeProvider>(context).isDarkMode;
     return Scaffold(
-      appBar: AppBarWidget(title: widget.title),
+      appBar: AppBarWidget(title: widget.title.toUpperCase()),
       body: Column(
         children: [
           // Map
@@ -296,8 +297,14 @@ class _RideDetailsScreenState extends State<RideDetailsScreen> {
                     icon: Icon(Icons.call),
                     label: Text(
                       widget.isRider
-                          ? 'CALL ${widget.history.driverName}'
-                          : 'CALL ${widget.history.username}',
+                          ? AppLocalizations.of(
+                              context,
+                            )!.callUsername(widget.history.driverName)
+                          : AppLocalizations.of(
+                              context,
+                            )!.callUsername(widget.history.username),
+                      // ? 'CALL ${widget.history.driverName}'
+                      // : 'CALL ${widget.history.username}',
                     ),
                   ),
                 ],

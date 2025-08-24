@@ -1,0 +1,315 @@
+{
+  "language": "English",
+  "@language": {
+    "description": "The Current Language"
+  },
+  "hi": "Hi",
+  "@hi": {
+    "description": "Greeting for the landing page"
+  },
+  "whatWouldYouLikeToDoToday": "What would you like to do today?",
+  "@whatWouldYouLikeToDoToday": {
+    "description": "Message asking users what they want"
+  },
+  "requestRide": "Request Ride",
+  "@requestRide": {
+    "description": "Menu Item to request a ride"
+  },
+  "rideHistory": "Ride History",
+  "@rideHistory": {
+    "description": "Menu Item to view rides history"
+  },
+  "myProfile": "My Profile",
+  "@myProfile": {
+    "description": "Menu Item to view profile"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Menu Item to view settings"
+  },
+  "test": "Test",
+  "@test": {
+    "description": "Menu Item to test widgets"
+  },
+  "englishEnglish": "English",
+  "@englishEnglish": {
+    "description": "English translation in English"
+  },
+  "englishTurkish": "Turkish",
+  "@englishTurkish": {
+    "description": "Turkish translation in English"
+  },
+  "englishRussian": "Russian",
+  "@englishRussian": {
+    "description": "Russian translation in English"
+  },
+  "changePassword": "Change Password",
+  "@changePassword": {
+    "description": "Menu item to Change Password"
+  },
+  "deleteAccount": "Delete Account",
+  "@deleteAccount": {
+    "description": "Menu item to Delete Account"
+  },
+  "changeLanguage": "Change Language",
+  "@changeLanguage": {
+    "description": "Menu item to Change Language"
+  },
+  "enableDarkMode": "Enable Dark Mode",
+  "@enableDarkMode": {
+    "description": "Menu item to Enable Dark Mode"
+  },
+  "enableNotifications": "Enable Notifications",
+  "@enableNotifications": {
+    "description": "Menu item to Change Password"
+  },
+  "contactUs": "Contact Us",
+  "@contactUs": {
+    "description": "Menu item to Contact Us"
+  },
+  "termsAndConditions": "Terms & Conditions",
+  "@termsAndConditions": {
+    "description": "Menu item to Terms & Conditions"
+  },
+  "logOut": "Log Out",
+  "@logOut": {
+    "description": "Menu item to Log Out"
+  },
+  "appTitle": "App",
+  "@appTitle": {
+    "description": "Menu item to App"
+  },
+  "accountTitle": "Account",
+  "@accountTitle": {
+    "description": "Menu item to Account"
+  },
+  "supportTitle": "Support",
+  "@supportTitle": {
+    "description": "Menu item to Support"
+  },
+  "vehicleDetails": "Vehicle Details",
+  "@vehicleDetails": {
+    "description": "Menu item to Vehicle Details"
+  },
+  "usePromoCode": "Use promo code {promoCode} to get {percentage}% off your next ride!",
+  "@usePromoCode": {
+    "description": "Promo code when available",
+    "placeholders": {
+      "promoCode": {
+        "type": "String"
+      },
+      "percentage": {
+        "type": "int"
+      }
+    }
+  },
+  "noRideFound": "Looks like you have no rides yet.",
+  "@noRideFound": {
+    "description": "Message to display when user has no ride history"
+  },
+  "rideAccepted": "Accepted",
+  "@rideAccepted": {
+    "description": "A ride status message"
+  },
+  "rideArrived": "Driver has arrived",
+  "@rideArrived": {
+    "description": "A ride status message"
+  },
+  "rideOnTrip": "In Transit",
+  "@rideOnTrip": {
+    "description": "A ride status message"
+  },
+  "rideEnded": "Completed",
+  "@rideEnded": {
+    "description": "A ride status message"
+  },
+  "rideUnknown": "Status unknown",
+  "@rideUnknown": {
+    "description": "A ride status message"
+  },
+  "callUsername": "Call {username}",
+  "@callUsername": {
+    "description": "Message to prompt user to call the other party",
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+  "rideDetails": "Ride Details",
+  "@rideDetails": {
+    "description": "Title showing ride details"
+  },
+  "personalDetails": "Personal Details",
+  "@personalDetails": {
+    "description": "Sub-menu title"
+  },
+  "username": "Username",
+  "@username": {
+    "description": "Username item title"
+  },
+  "email": "Email",
+  "@email": {
+    "description": "Email item title"
+  },
+  "firstName": "First Name",
+  "@firstName": {
+    "description": "First Name item title"
+  },
+  "surname": "Surname",
+  "@surname": {
+    "description": "Surname item title"
+  },
+  "phone": "Phone",
+  "@phone": {
+    "description": "Phone item title"
+  },
+  "totalRidesTaken": "Total Rides Taken",
+  "@totalRidesTaken": {
+    "description": "Total Rides Taken item title"
+  },
+  "carModel": "Car Model",
+  "@carModel": {
+    "description": "Car Model item title"
+  },
+  "colour": "Colour",
+  "@colour": {
+    "description": "Colour item title"
+  },
+  "registrationNumber": "Registration Number",
+  "@registrationNumber": {
+    "description": "Registration Number item title"
+  },
+  "totalRidesDriven": "Total Rides Driven",
+  "@totalRidesDriven": {
+    "description": "Total Rides Driven item title"
+  },
+  "editProfile": "Edit Profile",
+  "@editProfile": {
+    "description": "Edit Profile Page Title"
+  },
+  "updateProfile": "Update Profile",
+  "@updateProfile": {
+    "description": "Update Profile action button"
+  },
+  "firstNameRequiredError": "Please enter your first name",
+  "@firstNameRequiredError": {
+    "description": "First name required error message"
+  },
+  "lastNameRequiredError": "Please enter your surname",
+  "@lastNameRequiredError": {
+    "description": "Surname required error message"
+  },
+  "firstNameLengthError": "Your first name needs at least 2 letters",
+  "@firstNameLengthError": {
+    "description": "First name length error message"
+  },
+  "lastNameLengthError": "Your surname needs at least 2 letters",
+  "@lastNameLengthError": {
+    "description": "Surname length error message"
+  },
+  "phoneNumberRequiredError": "Please enter your phone number",
+  "@phoneNumberRequiredError": {
+    "description": "Phone number required error message"
+  },
+  "phoneNumberInvalidError": "Please enter a valid phone number",
+  "@phoneNumberInvalidError": {
+    "description": "Invalid phone number error message"
+  },
+  "profileUpdateSuccess": "Your profile has been updated successfully",
+  "@profileUpdateSuccess": {
+    "description": "Profile update success message"
+  },
+  "profileUpdateFailure": "There was an error updating your profile: ",
+  "@profileUpdateFailure": {
+    "description": "Profile update failure message"
+  },
+  "from": "From",
+  "@from": {
+    "description": "Shows the pickup location"
+  },
+  "to": "To",
+  "@to": {
+    "description": "Shows the dropoff location"
+  },
+  "enterDestination": "Enter Destination",
+  "@enterDestination": {
+    "description": "Shows the dropoff location"
+  },
+  "changePickup": "Change Pickup",
+  "@changePickup": {
+    "description": "Change pickup location action button label"
+  },
+  "requestARide": "Request a Ride",
+  "@requestARide": {
+    "description": "Request a ride action button label"
+  },
+  "setCurrentLocation": "Set Current Location",
+  "@setCurrentLocation": {
+    "description": "Set current location action button label"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel request ride action button label"
+  },
+  "pleaseWait": "Please wait...",
+  "@pleaseWait": {
+    "description": "Loading screen message"
+  },
+  "searchingForDriver": "Searching for driver...",
+  "@searchingForDriver": {
+    "description": "Loading screen message"
+  },
+  "callDriver": "Call Driver",
+  "@callDriver": {
+    "description": "Action prompt for rider to call assigned driver"
+  },
+  "pleaseEnterDestination": "Please enter destination",
+  "@pleaseEnterDestination": {
+    "description": "Prompt rider to enter destination"
+  },
+  "pleaseEnterPickupAddress": "Please enter pickup address",
+  "@pleaseEnterPickupAddress": {
+    "description": "Prompt rider to enter pickup address"
+  },
+  "unknownAddress": "Unknown Address",
+  "@unknownAddress": {
+    "description": "Display address error"
+  },
+  "driverIsComing": "Driver is coming",
+  "@driverIsComing": {
+    "description": "Promtp user of driver status"
+  },
+  "driverHasArrived": "Driver has arrived",
+  "@driverHasArrived": {
+    "description": "Promtp user of driver status"
+  },
+  "goingTowardsDestination": "Going towards destination",
+  "@goingTowardsDestination": {
+    "description": "Promtp user of driver status"
+  },
+  "noAvailableDriverNearby": "No available driver nearby",
+  "@noAvailableDriverNearby": {
+    "description": "Prompt user of driver availability in the area"
+  },
+  "goHome": "Go Home",
+  "@goHome": {
+    "description": "Prompts the user to go to main screen"
+  },
+  "stay": "Stay",
+  "@stay": {
+    "description": "Prompts the user to remain on current screen"
+  },
+  "rideCompleted": "Ride Completed",
+  "@rideCompleted": {
+    "description": "Prompts the user to about the end of the ride"
+  },
+  "yourRideHasEnded": "Your ride has ended successfully.\n\nDo you want to return to the home screen?",
+  "@yourRideHasEnded": {
+    "description": "Prompts the user about the final status of the ride"
+  },
+  "couldNotCallDriver": "Could not call driver",
+  "@couldNotCallDriver": {
+    "description": "Error message if calling driver fails"
+  }
+}

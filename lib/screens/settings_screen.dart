@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/carbon.dart';
 
 import 'package:provider/provider.dart';
 import 'package:taxi_app/controllers/theme_provider.dart';
 import 'package:taxi_app/controllers/profile_provider.dart';
+import 'package:taxi_app/l10n/app_localizations.dart';
 import 'package:taxi_app/screens/edit_profile.dart';
 import 'package:taxi_app/screens/settings/Change_password_screen.dart';
 import 'package:taxi_app/screens/settings/contact_us_screen.dart';
@@ -12,6 +15,7 @@ import 'package:taxi_app/screens/settings/terms_and_conditions_screen.dart';
 import 'package:taxi_app/screens/settings/vehicle_details_screen.dart';
 import 'package:taxi_app/screens/widgets/app_bar_widget.dart';
 import 'package:taxi_app/screens/widgets/change_theme_button_widget.dart';
+import 'package:taxi_app/screens/widgets/language_picker_widget.dart';
 import 'package:taxi_app/screens/widgets/setting_widget.dart';
 import 'package:taxi_app/services/auth_service.dart';
 import 'package:taxi_app/utils/colors.dart';
@@ -50,7 +54,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.primary,
-      appBar: AppBarWidget(title: 'SETTINGS'),
+      appBar: AppBarWidget(
+        title: AppLocalizations.of(context)!.settings.toUpperCase(),
+      ),
       body: Consumer<ProfileProvider>(
         builder: (context, userProvider, _) {
           if (userProvider.isLoading) {
@@ -150,7 +156,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       const SizedBox(height: 18),
                       Text(
-                        "Account",
+                        AppLocalizations.of(context)!.accountTitle,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -181,7 +187,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               ),
                             ],
                             SettingWidget(
-                              title: 'Change Password',
+                              title: AppLocalizations.of(
+                                context,
+                              )!.changePassword,
                               icon: Icons.lock,
                               page: const ChangePasswordScreen(),
                             ),
@@ -191,7 +199,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               thickness: 0.4,
                             ),
                             SettingWidget(
-                              title: 'Delete Account',
+                              title: AppLocalizations.of(
+                                context,
+                              )!.deleteAccount,
                               icon: Icons.delete_forever,
                               page: const DeleteAccountScreen(),
                             ),
@@ -200,7 +210,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       const SizedBox(height: 18),
                       Text(
-                        "App",
+                        AppLocalizations.of(context)!.appTitle,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -224,10 +234,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               children: [
                                 Row(
                                   children: [
+                                    Iconify(
+                                      Carbon.ibm_watson_language_translator,
+                                      color: Theme.of(context).iconTheme.color,
+                                      size: 18,
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Text(
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.changeLanguage,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium,
+                                    ),
+                                  ],
+                                ),
+                                LanguagePickerWidget(),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                              children: [
+                                Row(
+                                  children: [
                                     Icon(CupertinoIcons.moon_stars, size: 18),
                                     const SizedBox(width: 12),
                                     Text(
-                                      'Enable Dark Mode',
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.enableDarkMode,
                                       style: Theme.of(
                                         context,
                                       ).textTheme.bodyMedium,
@@ -243,7 +280,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               thickness: 0.4,
                             ),
                             SettingWidget(
-                              title: 'Enable Notifications',
+                              title: AppLocalizations.of(
+                                context,
+                              )!.enableNotifications,
                               icon: Icons.notifications_none,
                               page: const DeleteAccountScreen(),
                             ),
@@ -257,7 +296,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       const SizedBox(height: 18),
                       Text(
-                        "Support",
+                        AppLocalizations.of(context)!.supportTitle,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -276,7 +315,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: Column(
                           children: [
                             SettingWidget(
-                              title: 'Contact Us',
+                              title: AppLocalizations.of(context)!.contactUs,
                               icon: Icons.contact_support,
                               page: const ContactUsScreen(),
                             ),
@@ -286,7 +325,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               thickness: 0.4,
                             ),
                             SettingWidget(
-                              title: 'Terms & Conditions',
+                              title: AppLocalizations.of(
+                                context,
+                              )!.termsAndConditions,
                               icon: Icons.article,
                               page: const TermsAndConditionsScreen(),
                             ),
@@ -314,7 +355,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               ),
                               const SizedBox(width: 12),
                               Text(
-                                'Log Out',
+                                AppLocalizations.of(context)!.logOut,
                                 style: Theme.of(context).textTheme.bodyMedium!
                                     .copyWith(color: Colors.red),
                               ),

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:taxi_app/controllers/profile_provider.dart';
 import 'package:taxi_app/controllers/ride_history_provider.dart';
 import 'package:taxi_app/controllers/theme_provider.dart';
+import 'package:taxi_app/l10n/app_localizations.dart';
 import 'package:taxi_app/models/ride_history.dart';
 import 'package:taxi_app/screens/rides/ride_details_screen.dart';
 import 'package:taxi_app/screens/widgets/app_bar_widget.dart';
@@ -38,7 +39,9 @@ class _RideHistoryScreenState extends State<RideHistoryScreen> {
 
     return Scaffold(
       backgroundColor: const Color(0xFF00009A),
-      appBar: AppBarWidget(title: 'RIDE HISTORY'),
+      appBar: AppBarWidget(
+        title: AppLocalizations.of(context)!.rideHistory.toUpperCase(),
+      ),
       body: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
@@ -48,7 +51,7 @@ class _RideHistoryScreenState extends State<RideHistoryScreen> {
         child: rideProvider.isLoading
             ? Center(child: CircularProgressIndicator.adaptive())
             : rideProvider.userRides.isEmpty
-            ? Center(child: Text("No rides found."))
+            ? Center(child: Text(AppLocalizations.of(context)!.noRideFound))
             : ListView.builder(
                 itemCount: rideProvider.userRides.length,
                 itemBuilder: (context, index) {
@@ -66,7 +69,7 @@ class _RideHistoryScreenState extends State<RideHistoryScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (_) => RideDetailsScreen(
-                              title: 'RIDE DETAILS',
+                              title: AppLocalizations.of(context)!.rideDetails,
                               isRider: true,
                               history: ride,
                             ),
@@ -115,7 +118,21 @@ class _RideHistoryScreenState extends State<RideHistoryScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  ride.status,
+                                  ride.status == 'accepted'
+                                      ? AppLocalizations.of(
+                                          context,
+                                        )!.rideAccepted
+                                      : ride.status == 'arrived'
+                                      ? AppLocalizations.of(
+                                          context,
+                                        )!.rideArrived
+                                      : ride.status == 'ontrip'
+                                      ? AppLocalizations.of(context)!.rideOnTrip
+                                      : ride.status == 'ended'
+                                      ? AppLocalizations.of(context)!.rideEnded
+                                      : AppLocalizations.of(
+                                          context,
+                                        )!.rideUnknown,
                                   style: TextStyle(
                                     color: ride.status == 'ended'
                                         ? Colors.green

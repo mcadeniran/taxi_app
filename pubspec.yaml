@@ -30,6 +30,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
   http: ^0.13.4
   provider: ^6.1.5
   image_picker: ^1.1.1
@@ -90,6 +93,7 @@ flutter_native_splash:
     image: assets/images/splash12.png
 
 flutter:
+  generate: true
   assets:
     - assets/images/
     - map_themes/

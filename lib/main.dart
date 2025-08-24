@@ -1,12 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:taxi_app/controllers/drive_history_provider.dart';
+import 'package:taxi_app/controllers/locale_provider.dart';
 import 'package:taxi_app/controllers/ride_history_provider.dart';
 import 'package:taxi_app/controllers/theme_provider.dart';
 import 'package:taxi_app/controllers/profile_provider.dart';
 import 'package:taxi_app/firebase_options.dart';
 import 'package:taxi_app/infoHandler/app_info.dart';
+import 'package:taxi_app/l10n/app_localizations.dart';
+import 'package:taxi_app/l10n/l10n.dart';
 import 'package:taxi_app/services/auth_gate.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +22,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => LocaleProvider()),
         ChangeNotifierProvider(
           create: (_) => ProfileProvider()..initAuthListener(),
         ),
@@ -55,8 +60,17 @@ class _TaxiAppState extends State<TaxiApp> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final localeProvider = Provider.of<LocaleProvider>(context);
     return MaterialApp(
       title: 'KIPGO',
+      supportedLocales: L10n.all,
+      locale: localeProvider.locale,
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       themeMode: themeProvider.themeMode,

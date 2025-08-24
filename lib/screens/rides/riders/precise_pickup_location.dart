@@ -11,6 +11,7 @@ import 'package:location/location.dart' as loc;
 import 'package:provider/provider.dart';
 import 'package:taxi_app/controllers/theme_provider.dart';
 import 'package:taxi_app/infoHandler/app_info.dart';
+import 'package:taxi_app/l10n/app_localizations.dart';
 import 'package:taxi_app/models/direction.dart';
 import 'package:taxi_app/utils/colors.dart';
 import 'package:taxi_app/utils/methods.dart';
@@ -238,7 +239,7 @@ class _PrecisePickupLocationScreenState
                   ),
                 ),
                 child: Text(
-                  'Set Current Location',
+                  AppLocalizations.of(context)!.setCurrentLocation,
                   style: TextStyle(
                     color: isDark ? Colors.white : Colors.black,
                     fontSize: 16,

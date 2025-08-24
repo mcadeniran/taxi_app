@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:taxi_app/controllers/ride_history_provider.dart';
 import 'package:taxi_app/controllers/theme_provider.dart';
 import 'package:taxi_app/controllers/profile_provider.dart';
-import 'package:taxi_app/screens/login_screen.dart';
+import 'package:taxi_app/l10n/app_localizations.dart';
 import 'package:taxi_app/screens/rides/riders/ride_history_screen.dart';
 import 'package:taxi_app/screens/widgets/app_bar_widget.dart';
 import 'package:taxi_app/utils/colors.dart';
@@ -29,22 +29,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  void _logout() async {
-    if (!mounted) return;
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (_) => const LoginScreen()),
-      (route) => false,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     bool isDark = Provider.of<ThemeProvider>(context, listen: false).isDarkMode;
     final rideProvider = Provider.of<RideHistoryProvider>(context);
     return Scaffold(
       backgroundColor: const Color(0xFF00009A),
-      appBar: AppBarWidget(title: 'MY PROFILE'),
+      appBar: AppBarWidget(
+        title: AppLocalizations.of(context)!.myProfile.toUpperCase(),
+      ),
 
       body: Consumer<ProfileProvider>(
         builder: (context, userProvider, _) {
@@ -90,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 SizedBox(height: 18),
-                Text('Personal Details'),
+                Text(AppLocalizations.of(context)!.personalDetails),
                 Container(
                   padding: EdgeInsets.all(8),
                   margin: EdgeInsets.only(top: 2),
@@ -102,22 +95,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      detailsRow(title: 'Username', details: profile!.username),
-                      const SizedBox(height: 10),
-                      detailsRow(title: 'Email', details: profile.email),
+                      detailsRow(
+                        title: AppLocalizations.of(context)!.username,
+                        details: profile!.username,
+                      ),
                       const SizedBox(height: 10),
                       detailsRow(
-                        title: 'First Name',
+                        title: AppLocalizations.of(context)!.email,
+                        details: profile.email,
+                      ),
+                      const SizedBox(height: 10),
+                      detailsRow(
+                        title: AppLocalizations.of(context)!.firstName,
                         details: profile.personal.firstName,
                       ),
                       const SizedBox(height: 10),
                       detailsRow(
-                        title: 'Surname',
+                        title: AppLocalizations.of(context)!.surname,
                         details: profile.personal.lastName,
                       ),
                       const SizedBox(height: 10),
                       detailsRow(
-                        title: 'Phone',
+                        title: AppLocalizations.of(context)!.phone,
                         details: profile.personal.phone,
                       ),
                       SizedBox(height: 20),
@@ -127,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Row(
                             children: [
                               Text(
-                                'Total Rides Taken:',
+                                "${AppLocalizations.of(context)!.totalRidesTaken}:",
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
@@ -163,7 +162,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 if (profile.role == 'driver') ...[
                   SizedBox(height: 16),
-                  Text('Vehicle Details'),
+                  Text(AppLocalizations.of(context)!.vehicleDetails),
                   Container(
                     padding: EdgeInsets.all(8),
                     margin: EdgeInsets.only(top: 2),
@@ -176,24 +175,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         detailsRow(
-                          title: 'Car Model',
+                          title: AppLocalizations.of(context)!.carModel,
                           details: profile.vehicle.model,
                         ),
                         const SizedBox(height: 10),
                         detailsRow(
-                          title: 'Colour',
+                          title: AppLocalizations.of(context)!.colour,
                           details: profile.vehicle.colour,
                         ),
                         const SizedBox(height: 10),
                         detailsRow(
-                          title: 'Registration Number',
+                          title: AppLocalizations.of(
+                            context,
+                          )!.registrationNumber,
                           details: profile.vehicle.numberPlate,
                         ),
                         SizedBox(height: 20),
                         Row(
                           children: [
                             Text(
-                              'Total Rides Driven:',
+                              '${AppLocalizations.of(context)!.totalRidesDriven}:',
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -213,24 +214,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ],
-                const Spacer(),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: _logout,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF00009A),
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 12,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text("Log Out"),
-                  ),
-                ),
               ],
             ),
           );

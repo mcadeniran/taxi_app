@@ -8,7 +8,6 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:geocoder2/geocoder2.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
@@ -19,11 +18,10 @@ import 'package:taxi_app/controllers/theme_provider.dart';
 import 'package:taxi_app/controllers/profile_provider.dart';
 import 'package:taxi_app/helpers/helpers.dart';
 import 'package:taxi_app/infoHandler/app_info.dart';
+import 'package:taxi_app/l10n/app_localizations.dart';
 import 'package:taxi_app/models/active_nearby_available_driver.dart';
-import 'package:taxi_app/models/direction.dart';
 import 'package:taxi_app/models/profile.dart';
 import 'package:taxi_app/screens/customer_home.dart';
-import 'package:taxi_app/screens/rides/drivers/available_rides_screen.dart';
 import 'package:taxi_app/screens/rides/riders/precise_pickup_location.dart';
 import 'package:taxi_app/screens/rides/riders/search_places_screen.dart';
 import 'package:taxi_app/screens/widgets/progress_dialog.dart';
@@ -32,11 +30,11 @@ import 'package:taxi_app/utils/geofire_assistant.dart';
 import 'package:taxi_app/utils/methods.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<void> _makePhoneCall(String url) async {
+Future<void> _makePhoneCall(BuildContext context, String url) async {
   if (await canLaunch(url)) {
     await launchUrl(url as Uri);
   } else {
-    throw 'Could not call driver $url';
+    throw '${AppLocalizations.of(context)!.couldNotCallDriver} $url';
   }
 }
 
@@ -112,7 +110,7 @@ class _RequestRideState extends State<RequestRide> {
         intervalDuration: const Duration(seconds: 10),
         foregroundNotificationConfig: const ForegroundNotificationConfig(
           notificationText:
-              "Example app will continue to receive your location even when you aren't using it",
+              "KIPGO will continue to receive your location even when you aren't using it",
           notificationTitle: "Running in Background",
           enableWakeLock: true,
         ),
@@ -169,6 +167,7 @@ class _RequestRideState extends State<RequestRide> {
     print("Address: $humanReadableAddress");
 
     if (!mounted) return;
+    driverRideStatus = AppLocalizations.of(context)!.driverIsComing;
     username = Provider.of<ProfileProvider>(
       context,
       listen: false,
@@ -275,7 +274,7 @@ class _RequestRideState extends State<RequestRide> {
   void createActiveNearbyDriverIconMarker() {
     if (activeNearbyIcon == null) {
       ImageConfiguration imageConfiguration = ImageConfiguration(
-        size: Size(24, 24),
+        size: Size(30, 30),
       );
 
       BitmapDescriptor.asset(
@@ -312,7 +311,7 @@ class _RequestRideState extends State<RequestRide> {
     showDialog(
       context: context,
       builder: (BuildContext context) =>
-          ProgressDialog(message: 'Please wait...'),
+          ProgressDialog(message: AppLocalizations.of(context)!.pleaseWait),
     );
 
     var directionDetailsInfo =
@@ -396,7 +395,7 @@ class _RequestRideState extends State<RequestRide> {
       markerId: MarkerId('originId'),
       infoWindow: InfoWindow(
         title: originPosition.locationName,
-        snippet: 'From',
+        snippet: AppLocalizations.of(context)!.from,
       ),
       position: originLatLng,
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
@@ -406,7 +405,7 @@ class _RequestRideState extends State<RequestRide> {
       markerId: MarkerId('destinationId'),
       infoWindow: InfoWindow(
         title: destinationPosition.locationName,
-        snippet: 'To',
+        snippet: AppLocalizations.of(context)!.to,
       ),
       position: destinationLatLng,
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
@@ -566,10 +565,10 @@ class _RequestRideState extends State<RequestRide> {
           updateArrivalTimeToUserPickupLocation(driverCurrentPositionLatLng);
         }
 
-        // statis = 'arrived'
+        // status = 'arrived'
         if (userRideRequestStatus == 'arrived') {
           setState(() {
-            driverRideStatus = 'Driver has arrived';
+            driverRideStatus = AppLocalizations.of(context)!.driverHasArrived;
           });
         }
 
@@ -628,14 +627,14 @@ class _RequestRideState extends State<RequestRide> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   title: Text(
-                    "Ride Completed",
+                    AppLocalizations.of(context)!.rideCompleted,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       // color: AppColors.primary,
                     ),
                   ),
-                  content: const Text(
-                    "Your ride has ended successfully.\n\nDo you want to return to the home screen?",
+                  content: Text(
+                    AppLocalizations.of(context)!.yourRideHasEnded,
                     style: TextStyle(fontSize: 16),
                   ),
                   actions: [
@@ -644,7 +643,7 @@ class _RequestRideState extends State<RequestRide> {
                         Navigator.pop(context); // close dialog
                       },
                       child: Text(
-                        "Stay",
+                        AppLocalizations.of(context)!.stay,
                         style: TextStyle(color: AppColors.tertiary),
                       ),
                     ),
@@ -666,7 +665,7 @@ class _RequestRideState extends State<RequestRide> {
                           (route) => false,
                         );
                       },
-                      child: const Text("Go Home"),
+                      child: Text(AppLocalizations.of(context)!.goHome),
                     ),
                   ],
                 );
@@ -710,7 +709,7 @@ class _RequestRideState extends State<RequestRide> {
 
       setState(() {
         driverRideStatus =
-            "Driver is coming: ${directionDetailsInfo.durationText}";
+            "${AppLocalizations.of(context)!.driverIsComing}: ${directionDetailsInfo.durationText}";
       });
 
       requestPositionInfo = true;
@@ -745,7 +744,7 @@ class _RequestRideState extends State<RequestRide> {
 
       setState(() {
         driverRideStatus =
-            'Going towards destination: ${directionDetailsInfo.durationText}';
+            '${AppLocalizations.of(context)!.goingTowardsDestination}: ${directionDetailsInfo.durationText}';
       });
 
       requestPositionInfo = true;
@@ -764,7 +763,7 @@ class _RequestRideState extends State<RequestRide> {
         pLineCoordinateList.clear();
       });
       final noDriverSnackbar = SnackBar(
-        content: const Text('No available driver nearby'),
+        content: Text(AppLocalizations.of(context)!.noAvailableDriverNearby),
         duration: const Duration(seconds: 3),
       );
       ScaffoldMessenger.of(context).showSnackBar(noDriverSnackbar);
@@ -860,7 +859,7 @@ class _RequestRideState extends State<RequestRide> {
     polylineSet.clear();
     pLineCoordinateList.clear();
     userRideRequestStatus = '';
-    driverRideStatus = 'Driver is coming';
+    // driverRideStatus = AppLocalizations.of(context)!.driverIsComing;
   }
 
   @override
@@ -947,7 +946,9 @@ class _RequestRideState extends State<RequestRide> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'From',
+                                              AppLocalizations.of(
+                                                context,
+                                              )!.from,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 color: isDark
@@ -965,7 +966,9 @@ class _RequestRideState extends State<RequestRide> {
                                                         )
                                                         .userPickUpLocation!
                                                         .locationName!)
-                                                  : 'Unknown Address',
+                                                  : AppLocalizations.of(
+                                                      context,
+                                                    )!.unknownAddress,
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ],
@@ -1022,7 +1025,9 @@ class _RequestRideState extends State<RequestRide> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'To',
+                                                AppLocalizations.of(
+                                                  context,
+                                                )!.to,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   color: isDark
@@ -1040,7 +1045,9 @@ class _RequestRideState extends State<RequestRide> {
                                                           )
                                                           .userDropOffLocation!
                                                           .locationName!)
-                                                    : 'Enter Destination',
+                                                    : AppLocalizations.of(
+                                                        context,
+                                                      )!.enterDestination,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                             ],
@@ -1055,7 +1062,7 @@ class _RequestRideState extends State<RequestRide> {
                           ),
                           SizedBox(height: 5),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               ElevatedButton(
                                 onPressed: () {
@@ -1078,14 +1085,14 @@ class _RequestRideState extends State<RequestRide> {
                                   ),
                                 ),
                                 child: Text(
-                                  'Change Pickup',
+                                  AppLocalizations.of(context)!.changePickup,
                                   style: TextStyle(
                                     // color: isDark ? Colors.white : Colors.black,
                                     color: Colors.white,
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 10),
+                              // SizedBox(width: 10),
                               ElevatedButton(
                                 onPressed: () {
                                   if (Provider.of<AppInfo>(
@@ -1101,14 +1108,18 @@ class _RequestRideState extends State<RequestRide> {
                                     saveRideRequestInformation();
                                   } else {
                                     final snackBarPickup = SnackBar(
-                                      content: const Text(
-                                        'Please enter pickup address',
+                                      content: Text(
+                                        AppLocalizations.of(
+                                          context,
+                                        )!.pleaseEnterPickupAddress,
                                       ),
                                       duration: const Duration(seconds: 3),
                                     );
                                     final snackBarDestination = SnackBar(
-                                      content: const Text(
-                                        'Please enter destination',
+                                      content: Text(
+                                        AppLocalizations.of(
+                                          context,
+                                        )!.pleaseEnterDestination,
                                       ),
                                       duration: const Duration(seconds: 3),
                                     );
@@ -1143,7 +1154,7 @@ class _RequestRideState extends State<RequestRide> {
                                   ),
                                 ),
                                 child: Text(
-                                  'Request a Ride',
+                                  AppLocalizations.of(context)!.requestARide,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
@@ -1185,7 +1196,7 @@ class _RequestRideState extends State<RequestRide> {
                     SizedBox(height: 10),
                     Center(
                       child: Text(
-                        "Searching for driver...",
+                        AppLocalizations.of(context)!.searchingForDriver,
                         style: Theme.of(context).textTheme.headlineSmall!
                             .copyWith(
                               color: Theme.of(
@@ -1218,7 +1229,7 @@ class _RequestRideState extends State<RequestRide> {
                     SizedBox(
                       width: double.infinity,
                       child: Text(
-                        'Cancel',
+                        AppLocalizations.of(context)!.cancel,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: AppColors.tertiary,
@@ -1357,7 +1368,7 @@ class _RequestRideState extends State<RequestRide> {
                         ),
                         child: ElevatedButton.icon(
                           onPressed: () {
-                            _makePhoneCall("tel: $driverPhone");
+                            _makePhoneCall(context, "tel: $driverPhone");
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF00009A),
@@ -1371,7 +1382,7 @@ class _RequestRideState extends State<RequestRide> {
                             ),
                           ),
                           icon: Icon(Icons.call),
-                          label: Text('Call Driver'),
+                          label: Text(AppLocalizations.of(context)!.callDriver),
                         ),
                       ),
                     ],
